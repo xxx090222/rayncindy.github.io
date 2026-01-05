@@ -1,0 +1,639 @@
+html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的情侣空间 ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f9c5d1 0%, #f5b0cb 50%, #c780ac 100%);
+            color: #5a3d5c;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        .hearts {
+            font-size: 24px;
+            color: #ff4d6d;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #ff2e63;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .couple-names {
+            font-size: 1.8rem;
+            color: #9d4edd;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .love-date {
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #ff2e63;
+            font-size: 1.5rem;
+        }
+        
+        .card-title i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .photo-frame {
+            width: 100%;
+            height: 300px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .photo-placeholder {
+            color: #b8a9c9;
+            font-size: 5rem;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .days-counter {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #9d4edd;
+            margin: 20px 0;
+            font-weight: 700;
+        }
+        
+        .days-number {
+            font-size: 3.5rem;
+            color: #ff2e63;
+            display: block;
+            margin: 10px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .memory-box {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-left: 5px solid #ff2e63;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .memory-date {
+            font-size: 0.9rem;
+            color: #9d4edd;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .memory-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0c2d3;
+            border-radius: 15px;
+            font-size: 1rem;
+            margin-top: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #ff2e63, #ff758c);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 46, 99, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-send {
+            background: linear-gradient(to right, #9d4edd, #c77dff);
+        }
+        
+        .messages-container {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .message {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            color: #ff2e63;
+            margin-bottom: 5px;
+        }
+        
+        .message-time {
+            font-size: 0.8rem;
+            color: #a8a8a8;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+        
+        .message-content {
+            line-height: 1.5;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: #5a3d5c;
+            font-size: 0.9rem;
+        }
+        
+        .heart-animation {
+            position: absolute;
+            font-size: 20px;
+            color: #ff4d6d;
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes heartFloat {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .couple-names {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="hearts">❤️ ❤️ ❤️</div>
+            <h1>我们的情侣空间</h1>
+            <div class="couple-names" id="coupleNames">小明 ❤️ 小美</div>
+            <div class="love-date">
+                <i class="fas fa-heart"></i> 始于 <span id="loveStartDate">2023-06-01</span> <i class="fas fa-heart"></i>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-camera"></i> 我们的照片
+                </div>
+                <div class="photo-frame" id="photoFrame">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <!-- 这里可以替换成您的图片 -->
+                    <!-- <img src="Image_1767640977275_122.jpg" alt="我们的照片"> -->
+                </div>
+                <p style="text-align: center; margin-top: 15px; color: #777;">
+                    点击下方按钮上传我们的照片
+                </p>
+                <button class="btn" onclick="document.getElementById('photoUpload').click()">
+                    <i class="fas fa-upload"></i> 上传照片
+                </button>
+                <input type="file" id="photoUpload" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+            </div>
+            
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-heartbeat"></i> 恋爱计时
+                </div>
+                <div class="days-counter">
+                    我们已经相爱
+                    <div class="days-number" id="daysCount">0</div>
+                    天
+                </div>
+                <div class="memory-box">
+                    <div class="memory-date">最近一次纪念日</div>
+                    <div class="memory-text">第一次约会，在星空下漫步</div>
+                </div>
+                <div class="memory-box">
+                    <div class="memory-date">最难忘的回忆</div>
+                    <div class="memory-text">一起看日出，迎接新的一天</div>
+                </div>
+                <button class="btn" onclick="addMemory()">
+                    <i class="fas fa-plus-circle"></i> 添加新回忆
+                </button>
+            </div>
+        </div>
+        
+        <div class="main-content" style="margin-top: 25px;">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-comment-dots"></i> 悄悄话
+                </div>
+                <div class="messages-container" id="messagesContainer">
+                    <!-- 消息会动态添加到这里 -->
+                </div>
+                <div>
+                    <textarea class="message-input" id="messageInput" placeholder="写下你想对TA说的话..."></textarea>
+                    <div style="display: flex; justify-content: space-between;">
+                        <select id="senderSelect" style="padding: 10px; border-radius: 10px; border: 2px solid #f0c2d3; margin-top: 15px;">
+                            <option value="小明">小明</option>
+                            <option value="小美">小美</option>
+                        </select>
+                        <button class="btn btn-send" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i> 发送消息
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-gift"></i> 特别日子
+                </div>
+                <div class="days-counter">
+                    距离TA的生日还有
+                    <div class="days-number" id="birthdayCount">45</div>
+                    天
+                </div>
+                <div class="memory-box">
+                    <div class="memory-date">我们的纪念日</div>
+                    <div class="memory-text">6月1日 · 相遇纪念日</div>
+                </div>
+                <div class="memory-box">
+                    <div class="memory-date">情人节计划</div>
+                    <div class="memory-text">准备一份特别的惊喜礼物</div>
+                </div>
+                <button class="btn" onclick="addSpecialDay()">
+                    <i class="fas fa-calendar-plus"></i> 添加特别日子
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>❤️ 此空间仅属于我们两人，记录我们的点点滴滴 ❤️</p>
+            <p style="margin-top: 10px;">© 2023 我们的爱情空间 | 每一天都比前一天更爱你</p>
+        </footer>
+    </div>
+
+    <!-- 隐藏的文件上传输入 -->
+    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+    
+    <script>
+        // 初始化页面数据
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDaysCount();
+            loadMessages();
+            createHearts();
+            
+            // 每60秒更新一次时间
+            setInterval(updateDaysCount, 60000);
+            
+            // 每隔3秒创建一个漂浮的爱心
+            setInterval(createFloatingHeart, 3000);
+        });
+        
+        // 计算相爱天数
+        function updateDaysCount() {
+            const startDate = new Date(document.getElementById('loveStartDate').textContent);
+            const currentDate = new Date();
+            const timeDiff = currentDate - startDate;
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            document.getElementById('daysCount').textContent = daysDiff;
+            
+            // 更新当前时间
+            const now = new Date();
+            const timeString = now.toLocaleDateString('zh-CN', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            }) + ' ' + now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            
+            // 更新页面上的时间显示（如果有的话）
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
+        
+        // 修改情侣名字
+        function editNames() {
+            const newNames = prompt("请输入你们的名字（用❤️分隔）：", "小明 ❤️ 小美");
+            if (newNames && newNames.trim() !== "") {
+                document.getElementById('coupleNames').textContent = newNames;
+                
+                // 更新下拉选择框
+                const names = newNames.split('❤️');
+                if (names.length >= 2) {
+                    const select = document.getElementById('senderSelect');
+                    select.innerHTML = '';
+                    names.forEach(name => {
+                        const option = document.createElement('option');
+                        option.value = name.trim();
+                        option.textContent = name.trim();
+                        select.appendChild(option);
+                    });
+                }
+                
+                // 保存到本地存储
+                localStorage.setItem('coupleNames', newNames);
+            }
+        }
+        
+        // 上传照片处理
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoFrame = document.getElementById('photoFrame');
+                    photoFrame.innerHTML = `<img src="${e.target.result}" alt="我们的照片">`;
+                    
+                    // 保存到本地存储
+                    localStorage.setItem('couplePhoto', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // 发送消息
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const senderSelect = document.getElementById('senderSelect');
+            const messagesContainer = document.getElementById('messagesContainer');
+            
+            if (messageInput.value.trim() === "") {
+                alert("请输入消息内容！");
+                return;
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                <div class="message-sender">${senderSelect.value}</div>
+                <div class="message-time">${timeString}</div>
+                <div class="message-content">${messageInput.value}</div>
+            `;
+            
+            messagesContainer.prepend(messageDiv);
+            
+            // 保存消息到本地存储
+            saveMessage({
+                sender: senderSelect.value,
+                content: messageInput.value,
+                time: now.toISOString()
+            });
+            
+            // 清空输入框
+            messageInput.value = "";
+            
+            // 添加爱心动画
+            createFloatingHeart();
+        }
+        
+        // 保存消息到本地存储
+        function saveMessage(message) {
+            let messages = JSON.parse(localStorage.getItem('coupleMessages') || '[]');
+            messages.push(message);
+            
+            // 只保留最近50条消息
+            if (messages.length > 50) {
+                messages = messages.slice(messages.length - 50);
+            }
+            
+            localStorage.setItem('coupleMessages', JSON.stringify(messages));
+        }
+        
+        // 从本地存储加载消息
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem('coupleMessages') || '[]');
+            const messagesContainer = document.getElementById('messagesContainer');
+            
+            // 清空容器
+            messagesContainer.innerHTML = '';
+            
+            // 按时间倒序显示消息
+            messages.slice().reverse().forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                
+                const time = new Date(msg.time);
+                const timeString = time.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+                
+                messageDiv.innerHTML = `
+                    <div class="message-sender">${msg.sender}</div>
+                    <div class="message-time">${timeString}</div>
+                    <div class="message-content">${msg.content}</div>
+                `;
+                
+                messagesContainer.appendChild(messageDiv);
+            });
+            
+            // 加载保存的情侣名字
+            const savedNames = localStorage.getItem('coupleNames');
+            if (savedNames) {
+                document.getElementById('coupleNames').textContent = savedNames;
+                
+                // 更新下拉选择框
+                const names = savedNames.split('❤️');
+                if (names.length >= 2) {
+                    const select = document.getElementById('senderSelect');
+                    select.innerHTML = '';
+                    names.forEach(name => {
+                        const option = document.createElement('option');
+                        option.value = name.trim();
+                        option.textContent = name.trim();
+                        select.appendChild(option);
+                    });
+                }
+            }
+            
+            // 加载保存的照片
+            const savedPhoto = localStorage.getItem('couplePhoto');
+            if (savedPhoto) {
+                const photoFrame = document.getElementById('photoFrame');
+                photoFrame.innerHTML = `<img src="${savedPhoto}" alt="我们的照片">`;
+            }
+        }
+        
+        // 添加回忆
+        function addMemory() {
+            const memoryText = prompt("请输入你们的回忆：");
+            if (memoryText && memoryText.trim() !== "") {
+                alert("回忆已添加！");
+                // 这里可以扩展为将回忆保存到本地存储
+            }
+        }
+        
+        // 添加特别日子
+        function addSpecialDay() {
+            const specialDay = prompt("请输入特别日子的名称：");
+            if (specialDay && specialDay.trim() !== "") {
+                alert("特别日子已添加！");
+                // 这里可以扩展为将特别日子保存到本地存储
+            }
+        }
+        
+        // 创建漂浮的爱心
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-animation';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.opacity = '0.7';
+            
+            document.body.appendChild(heart);
+            
+            // 动画
+            const animationDuration = Math.random() * 3 + 2;
+            heart.style.animation = `heartFloat ${animationDuration}s ease-in forwards`;
+            
+            // 动画结束后移除元素
+            setTimeout(() => {
+                heart.remove();
+            }, animationDuration * 1000);
+        }
+        
+        // 创建初始爱心
+        function createHearts() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createFloatingHeart, i * 300);
+            }
+        }
+        
+        // 允许通过按Enter键发送消息
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // 双击标题可以修改名字
+        document.getElementById('coupleNames').addEventListener('dblclick', editNames);
+    </script>
+</body>
+</html>
